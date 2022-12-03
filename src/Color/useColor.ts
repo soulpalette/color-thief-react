@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useCurrentEffect } from 'use-current-effect';
 import {
   getPredominantColorFromImgURL,
   reducer,
@@ -22,24 +21,17 @@ export default function useColor<
 
   const [state, dispatch] = React.useReducer(reducer, <S>initialReducerState);
 
-  useCurrentEffect(
-    (isCurrent) => {
-      dispatch({ type: 'start', payload: null });
+  React.useEffect(() => {
+    dispatch({ type: 'start', payload: null });
 
-      getPredominantColorFromImgURL(imgSrc, format, crossOrigin, quality)
-        .then((color) => {
-          if (isCurrent()) {
-            dispatch({ type: 'resolve', payload: color });
-          }
-        })
-        .catch((ex) => {
-          if (isCurrent()) {
-            dispatch({ type: 'reject', payload: ex });
-          }
-        });
-    },
-    [imgSrc]
-  );
+    getPredominantColorFromImgURL(imgSrc, format, crossOrigin, quality)
+      .then((color) => {
+        dispatch({ type: 'resolve', payload: color });
+      })
+      .catch((ex) => {
+        dispatch({ type: 'reject', payload: ex });
+      });
+  }, [imgSrc]);
 
   return <S>state;
 }

@@ -23,8 +23,7 @@
     "color-convert": "^2.0.1",
     "colorthief": "2.3.2",
     "prop-types": "15.7.2",
-    "tslib": "2.3.0",
-    "use-current-effect": "2.1.0"
+    "tslib": "2.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "11.0.0",
@@ -62,12 +61,6 @@
     "color-thief-react-hook",
     "colorthief"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn run lint",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "release": {
     "branches": [
       "master",
